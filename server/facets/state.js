@@ -58,6 +58,7 @@ StateBroker.prototype.start = function (app) {
   log.debug('subscribe amqp', STATE_ROUTING_KEY);
   this.bus.subscribe(STATE_ROUTING_KEY, opts, function dispatch(message) {
     c.inc();
+     delete message.payload["$b"];
 
     //time series database
     setTemp(app, message, log);
